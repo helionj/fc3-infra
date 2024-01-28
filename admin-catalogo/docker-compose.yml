@@ -1,0 +1,71 @@
+version: '3.7'
+
+name: codeflix_admin
+
+services:
+  mysql:
+    container_name: codeflix_adm_videos_mysql
+    image: mysql:latest
+    environment:
+      MYSQL_ROOT_PASSWORD: 123456
+      MYSQL_DATABASE: adm_videos
+      MYSQL_ROOT_HOST: '%'
+    security_opt:
+      - seccomp:unconfined
+    ports:
+      - 3306:3306
+    volumes:
+      - codeflix_mysql01:/var/lib/mysql
+    networks:
+      - codeflix_admin_catalogo
+    profiles: ["admin", "all"]
+
+  app:
+    container_name: codeflix_adm_videos_app
+    image: deploydesexta/fc3-admin-catalogo-de-videos-java:master-13
+    env_file:
+      - .env.local
+    ports:
+      - 8080:8080
+    networks:
+      - codeflix_admin_catalogo
+      - codeflix_rabbitmq
+      - codeflix_keycloak
+    depends_on:
+      - filebeat
+      - mysql
+    labels:
+      filebeat_collector: true
+    profiles: ["admin-app", "all"]
+
+  filebeat:
+    container_name: codeflix_adm_videos_filebeat
+    image: docker.elastic.co/beats/filebeat:7.17.9
+    volumes:
+      - /var/lib/docker/containers:/var/lib/docker/containers:ro           # Docker logs
+      - /var/run/docker.sock:/var/run/docker.sock:ro                       # Additional information about containers
+      - ./filebeat/filebeat.docker.yml:/usr/share/filebeat/filebeat.yml:ro # Configuration file
+      - codeflix_filebeat01:/usr/share/filebeat/data:rw                    # Persistence data
+    user: root                                                             # Allow access to log files and docker.sock
+    restart: on-failure
+    networks:
+      - codeflix_elastic
+      - codeflix_admin_catalogo
+    profiles: ["admin", "all"]
+
+networks:
+  codeflix_adm_videos_network:
+  codeflix_admin_catalogo:
+    external: true
+  codeflix_elastic:
+    external: true
+  codeflix_keycloak:
+    external: true
+  codeflix_rabbitmq:
+    external: true
+
+volumes:
+  codeflix_filebeat01:
+    external: true
+  codeflix_mysql01:
+    external: true
