@@ -21,12 +21,12 @@ COMPOSE_PROFILES=a,b,c docker compose up
 The command to get all the stack up is:
 
 ```shell
-./up.sh elk,kafka,keycloak,rabbitmq,admin
+./up.sh elastic,kafka,keycloak,rabbitmq,admin
 ```
 
-After that you can optionally run the admin application with:
+After that you can optionally run the applications with:
 ```shell
-./up.sh admin,admin-app
+./up.sh admin,admin-app,catalogo,catalogo-app
 ```
 The `admin` in the command is required because of the `depends_on` instruction in the app container.
 

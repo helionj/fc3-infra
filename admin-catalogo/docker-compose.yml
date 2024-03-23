@@ -20,7 +20,7 @@ services:
       - codeflix_admin_catalogo
     profiles: ["admin", "all"]
 
-  app:
+  admin-app:
     container_name: codeflix_adm_videos_app
     image: deploydesexta/fc3-admin-catalogo-de-videos-java:master-13
     env_file:
