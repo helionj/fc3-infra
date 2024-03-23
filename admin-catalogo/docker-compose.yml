@@ -51,6 +51,9 @@ services:
     networks:
       - codeflix_elastic
       - codeflix_admin_catalogo
+    command:
+      - "-e"
+      - "--strict.perms=false"
     profiles: ["admin", "all"]
 
 networks:
