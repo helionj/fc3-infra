@@ -9,6 +9,8 @@ mkdir -m 777 .docker/keycloak
 # Criar as docker networks
 docker network create codeflix_admin_catalogo
 docker network create codeflix_catalogo
+docker network create codeflix_subscription
+docker network create codeflix_mysql
 docker network create codeflix_elastic
 docker network create codeflix_kafka
 docker network create codeflix_keycloak
@@ -23,9 +25,12 @@ docker volume create codeflix_kconnect01
 docker volume create codeflix_mysql01
 
 # Criar as pastas com permissões
-COMPOSE_PROFILES=$PROFILES docker compose -f admin-catalogo/docker-compose.yml up -d
-COMPOSE_PROFILES=$PROFILES docker compose -f catalogo/docker-compose.yml up -d
 COMPOSE_PROFILES=$PROFILES docker compose -f elk/docker-compose.yml up -d
 COMPOSE_PROFILES=$PROFILES docker compose -f kafka/docker-compose.yml up -d
+COMPOSE_PROFILES=$PROFILES docker compose -f kafka-connect/docker-compose.yml up -d
 COMPOSE_PROFILES=$PROFILES docker compose -f keycloak/docker-compose.yml up -d
+COMPOSE_PROFILES=$PROFILES docker compose -f mysql/docker-compose.yml up -d
 COMPOSE_PROFILES=$PROFILES docker compose -f rabbitmq/docker-compose.yml up -d
+COMPOSE_PROFILES=$PROFILES docker compose -f admin-catalogo/docker-compose.yml up -d
+COMPOSE_PROFILES=$PROFILES docker compose -f catalogo/docker-compose.yml up -d
+COMPOSE_PROFILES=$PROFILES docker compose -f subscription/docker-compose.yml up -d

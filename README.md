@@ -2,12 +2,14 @@
 # Compose Profiles
 
 - `all`: runs all stacks.
-- `admin`: runs admin api dependencies (filebeat, mysql).
-- `admin-app`: runs admin api application.
-- `catalogo`: runs catalogo api dependencies (kafka connect).
+- `admin`: runs admin application.
+- `catalogo`: runs catalogo application.
+- `subscription`: runs subscription application.
+- `mysql`: runs only mysql.
 - `elastic`: runs only elasticsearch.
-- `elk`: runs ELK stack.
+- `elk`: runs ELK stack (elastic, logstash, filebeat, kibana).
 - `kafka`: runs only Kafka dependencies.
+- `kafka-connect`: runs only Kafka-connect.
 - `keycloak`: runs only Keycloak.
 - `rabbitmq`: runs only RabbitMQ.
 
@@ -21,12 +23,12 @@ COMPOSE_PROFILES=a,b,c docker compose up
 The command to get all the stack up is:
 
 ```shell
-./up.sh elastic,kafka,keycloak,rabbitmq,admin
+./up.sh elastic,kafka,keycloak,rabbitmq,mysql
 ```
 
 After that you can optionally run the applications with:
 ```shell
-./up.sh admin,admin-app,catalogo,catalogo-app
+./up.sh admin,catalogo,subscription
 ```
 The `admin` in the command is required because of the `depends_on` instruction in the app container.
 

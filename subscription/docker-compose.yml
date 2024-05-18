@@ -1,31 +1,29 @@
 version: '3.7'
 
-name: codeflix_admin
+name: codeflix_subscription
 
 services:
-  admin:
-    container_name: codeflix_adm_videos_app
-    image: deploydesexta/fc3-admin-catalogo-de-videos-java:master-13
+  subscription:
+    container_name: codeflix_subscription_app
+    image: deploydesexta/fc3-subscription-service-java:master-13
     env_file:
       - .env.local
     ports:
-      - 8091:8080
+      - 8082:8080
     networks:
-      - codeflix_admin_catalogo
-      - codeflix_rabbitmq
       - codeflix_keycloak
+      - codeflix_kafka
       - codeflix_mysql
     labels:
       filebeat_collector: true
-    profiles: ["admin", "all"]
+    profiles: ["subscription", "all"]
 
 networks:
-  codeflix_adm_videos_network:
   codeflix_mysql:
     external: true
   codeflix_admin_catalogo:
     external: true
   codeflix_keycloak:
     external: true
-  codeflix_rabbitmq:
+  codeflix_kafka:
     external: true
