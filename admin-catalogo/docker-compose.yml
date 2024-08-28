@@ -5,7 +5,7 @@ name: codeflix_admin
 services:
   admin:
     container_name: codeflix_adm_videos_app
-    image: deploydesexta/fc3-admin-catalogo-de-videos-java:master-13
+    image: helionporto/fc3-admin-catalogo-de-videos-java:master-13
     env_file:
       - .env.local
     ports:

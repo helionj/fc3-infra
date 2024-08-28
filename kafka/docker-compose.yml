@@ -15,7 +15,7 @@ services:
     profiles: ["kafka", "all"]
 
   kafka:
-    image: confluentinc/cp-kafka:latest
+    image: confluentinc/cp-kafka:6.0.0
     container_name: codeflix_kafka
     depends_on:
       - zookeeper

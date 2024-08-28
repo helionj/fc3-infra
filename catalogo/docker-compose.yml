@@ -5,11 +5,11 @@ name: codeflix_catalogo
 services:
   catalogo:
     container_name: codeflix_catalogo_videos_app
-    image: deploydesexta/fc3-catalogo-de-videos-java:main-32
+    image: helionporto/fc3-catalogo-de-videos-java:main-32
     env_file:
       - .env.local
     ports:
-      - 8081:8081
+      - 8081:8080
     networks:
       - codeflix_catalogo
       - codeflix_admin_catalogo
