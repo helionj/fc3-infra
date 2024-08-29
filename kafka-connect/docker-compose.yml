@@ -10,12 +10,8 @@ services:
       - 8083:8083
     networks:
       - codeflix_mysql
-      - codeflix_kafka
-<<<<<<< HEAD
-    profiles: ["kafka-connect"]
-=======
+      - codeflix_kafka01
     profiles: ["kafka-connect","all"]
->>>>>>> e368a3c28be6c6760cb0f1579fb755e2a7b937e8
     environment:
       CONNECT_BOOTSTRAP_SERVERS: "kafka:9092"
       CONNECT_REST_PORT: 8083
