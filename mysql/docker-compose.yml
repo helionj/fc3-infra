@@ -7,7 +7,7 @@ services:
     container_name: codeflix_adm_videos_mysql
     image: mysql:8.0.37
     environment:
-      MYSQL_ROOT_PASSWORD: 123456
+      MYSQL_ROOT_PASSWORD: sql459037
       MYSQL_ROOT_HOST: '%'
     security_opt:
       - seccomp:unconfined
